@@ -17,12 +17,9 @@ socket.connect("tcp://localhost:5555")
 for request in range(100):
     message = """{
 "command_type": "os",
-"command_name": "ping",
+"command_name": "ls",
 "parameters": [
-"127.0.0.1",
-"-n",
-"6"
-]
+"~/"]
 }"""
     print("Sending request %s …" % request)
     socket.send_json(message)

@@ -3,7 +3,7 @@
 #   Binds REP socket to tcp://*:5555
 #   Expects b"Hello" from client, replies with b"World"
 #
-
+import subprocess
 import time
 import zmq
 import json
@@ -17,7 +17,10 @@ while True:
     message = json.loads(socket.recv_json())
     print(f"Received request: {message}")
     if message['command_type'] == 'os':
-        print(message['command_name']+' '+' '.join(message['parameters']))
+        message['parameters'].insert(0, message['command_name'])
+        print(message['parameters'])
+        # print(message['command_name']+' '+' '.join(message['parameters']))
+        subprocess.run(message['parameters'])
         # os.system(message['command']+' '.join(message['parameter']))
     if message['command_type'] == 'compute':
         response = eval(message['expression'])
