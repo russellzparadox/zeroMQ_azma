@@ -17,13 +17,13 @@ socket.connect("tcp://localhost:5555")
 for request in range(100):
     message = """{
 "command_type": "os",
-"command_name": "ls",
+"command_name": "ping",
 "parameters": [
-"~/"]
+"google.com","-c","5"]
 }"""
     print("Sending request %s …" % request)
     socket.send_json(message)
 
     #  Get the reply.
-    message = socket.recv()
+    message = socket.recv_json()
     print("Received reply %s [ %s ]" % (request, message))
